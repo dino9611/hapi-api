@@ -1,6 +1,6 @@
-const Hapi = require('@hapi/hapi')
+const Hapi = require('@hapi/hapi');
 
-const bookRoutes = require('./routes/book.routes')
+const bookRoutes = require('./routes/book.routes');
 
 const init = async () => {
   const server = Hapi.server({
@@ -11,7 +11,7 @@ const init = async () => {
         origin: ['*'],
       },
     },
-  })
+  });
 
   server.route({
     method: 'GET',
@@ -19,17 +19,17 @@ const init = async () => {
     handler: () => ({
       message: 'ping',
     }),
-  })
+  });
 
-  server.route(bookRoutes)
+  server.route(bookRoutes);
 
-  await server.start()
-  console.log('Server running on %s', server.info.uri)
-}
+  await server.start();
+  console.log('Server running on %s', server.info.uri);
+};
 
 process.on('unhandledRejection', (err) => {
-  console.log(err)
-  process.exit(1)
-})
+  console.log(err);
+  process.exit(1);
+});
 
-init()
+init();

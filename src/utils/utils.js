@@ -1,20 +1,24 @@
 module.exports.searchBooks = (filteredBooks, searchTerm) => {
-  const regex = new RegExp(`\\b${searchTerm}\\b`, 'i')
+  const regex = new RegExp(`\\b${searchTerm}\\b`, 'i');
 
-  return filteredBooks.filter((item) => regex.test(item.name))
-}
+  return filteredBooks.filter((item) => regex.test(item.name));
+};
 
 module.exports.searchBooksbyReading = (filteredBooks, reading) => {
-  return filteredBooks.filter((item) => item.reading === reading)
-}
+  const condition = (item) => item.reading === reading;
+  return filteredBooks.filter(condition);
+};
 
 module.exports.searchBooksbyFinished = (filteredBooks, finished) => {
-  return filteredBooks.filter((item) => item.finished === finished)
-}
-
+  const condition = (item) => item.finished === finished;
+  return filteredBooks.filter(condition);
+};
 module.exports.searchBooksbyId = (filteredBooks, bookId) => {
-  return filteredBooks.find((item) => item.id == bookId)
-}
+  const condition = (item) => item.id === bookId;
+  return filteredBooks.find(condition);
+};
+
 module.exports.getIndexBooksbyId = (filteredBooks, bookId) => {
-  return filteredBooks.findIndex((item) => item.id == bookId)
-}
+  const condition = (item) => item.id === bookId;
+  return filteredBooks.findIndex(condition);
+};

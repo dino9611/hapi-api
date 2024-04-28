@@ -1,4 +1,4 @@
-const bookHandler = require('./../handlers/books.handler')
+const bookHandler = require('../handlers/books.handler');
 
 const booksRoutes = [
   {
@@ -30,6 +30,6 @@ const booksRoutes = [
     path: '/books/{bookId}',
     handler: bookHandler.updateBookById,
   },
-]
+];
 
-module.exports = booksRoutes
+module.exports = booksRoutes;
