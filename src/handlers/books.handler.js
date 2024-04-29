@@ -25,9 +25,7 @@ const {
 
 module.exports = {
   addBooks: (request, h) => {
-    const {
-      name, pageCount, readPage, ...bookPayload
-    } = request.payload;
+    const { name, pageCount, readPage, ...bookPayload } = request.payload;
 
     if (!name) {
       return h.response(errBadReqName).code(400);
@@ -66,16 +64,22 @@ module.exports = {
     if (reading !== undefined) {
       filteredBooks = searchBooksbyReading(
         filteredBooks,
-        Boolean(Number(reading)),
+        Boolean(Number(reading))
       );
     }
 
     if (finished !== undefined) {
       filteredBooks = searchBooksbyFinished(
         filteredBooks,
-        Boolean(Number(finished)),
+        Boolean(Number(finished))
       );
     }
+
+    filteredBooks = filteredBooks.map((val) => ({
+      id: val.id,
+      name: val.name,
+      publisher: val.publisher,
+    }));
 
     return responseSuccessNoMsg(h, { books: filteredBooks }, 200);
   },
@@ -114,9 +118,7 @@ module.exports = {
   },
   updateBookById: (request, h) => {
     const { bookId } = request.params;
-    const {
-      name, pageCount, readPage, ...bookPayload
-    } = request.payload;
+    const { name, pageCount, readPage, ...bookPayload } = request.payload;
     const bookIndex = getIndexBooksbyId(books, bookId);
     if (!bookId) {
       return h.response(errUpdateIdNotFound).code(404);
@@ -134,7 +136,13 @@ module.exports = {
       return h.response(errInvalidUpdateReadPage).code(400);
     }
 
-    books.splice(bookIndex, 1, { ...books[bookIndex], ...bookPayload });
+    books.splice(bookIndex, 1, {
+      ...books[bookIndex],
+      name,
+      pageCount,
+      readPage,
+      ...bookPayload,
+    });
 
     return h
       .response({
